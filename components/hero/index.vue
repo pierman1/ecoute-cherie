@@ -1,3 +1,4 @@
+
 <template>
   <div class="hero">
     <div class="flex flex-wrap">
@@ -24,6 +25,7 @@ export default {
 <style lang="scss" scoped>
 .hero {
   height: calc(100vh - 90px);
+  max-height: 800px;
   overflow: hidden;
 
   img {
