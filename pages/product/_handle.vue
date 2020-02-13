@@ -1,44 +1,47 @@
 <template>
   <section v-if="product">
-    <div class="container mx-auto py-6">
-      <breadcrumbs :breadcrumb="`/collections/${product.collections.edges[0].node.handle}`" />
+    <div class="container flex flex-column md:flex-row md:items-end flex-wrap mx-auto py-6">
 
-      <div
-        v-for="(image, index) in product.images.edges"
-        :key="image.node.id"
-      >
-        <img v-if="index === 0" :src="image.node.src" :alt="image.node.alt" class="w-full md:w-1/2 mb-4">
+      <div class="w-full md:w-1/2 mb-4">
+          <breadcrumbs :breadcrumb="`/collections/${product.collections.edges[0].node.handle}`" />
+
+          <div
+          v-for="(image, index) in product.images.edges"
+          :key="image.node.id"
+          >
+          <img v-if="index === 0" :src="image.node.src" :alt="image.node.alt" class="w-full">
+        </div>
       </div>
 
-    </div>
-    <div class="container mx-auto px-8">
+      <div class="w-full md:w-1/2 md:pl-12">
+        <h1 class="font-bold text-xl">{{ product.title }}</h1>
 
-      <h1 class="font-bold text-xl">{{ product.title }}</h1>
+        <div class="flex mb-4">
+          <select name="" id="" v-model="quantity">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
 
-      <div class="flex mb-4">
-        <select name="" id="" v-model="quantity">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select>
+          <select name="" id="" v-model="variant" v-show="product.variants.edges.length > 1">
+            <option
+              v-for="variant in product.variants.edges"
+              :key="variant.node.id"
+              :value="variant.node.id">
+              {{ variant.node.title }}
+            </option>
+          </select>
 
-        <select name="" id="" v-model="variant" v-show="product.variants.edges.length > 1">
-          <option
-            v-for="variant in product.variants.edges"
-            :key="variant.node.id"
-            :value="variant.node.id">
-            {{ variant.node.title }}
-          </option>
-        </select>
+          <button
+            @click="addToCart"
+            class="bg-transparent hover:bg-blue text-black font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent">
+            add to cart
+          </button>
+        </div>
 
-        <button
-          @click="addToCart"
-          class="bg-transparent hover:bg-blue text-black font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent">
-          add to cart
-        </button>
+        <div class="text-sm mb-4">{{ product.description }}</div>
       </div>
 
-      <div class="text-sm mb-4">{{ product.description }}</div>
     </div>
   </section>
 </template>
