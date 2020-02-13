@@ -1,6 +1,8 @@
 <template>
   <section v-if="product">
     <div class="container mx-auto px-6 py-6">
+      <breadcrumbs :breadcrumb="`/collections/${product.collections.edges[0].node.handle}`" />
+      {{product.collections.edges[0].node.handle}}
 
       <div
         v-for="(image, index) in product.images.edges"
@@ -45,8 +47,12 @@
 
 <script>
 import { mapState } from 'vuex'
+import Breadcrumbs from '@/components/breadcrumbs/index.vue'
 
 export default {
+  components: {
+    Breadcrumbs
+  },
   data () {
     return {
       product: false,
@@ -67,6 +73,15 @@ export default {
             title
             description
             vendor
+            collections(first: 5) {
+              edges {
+                node {
+                  id
+                  title
+                  handle
+                }
+              }
+            }
             variants(first: 10) {
               edges {
                 node {

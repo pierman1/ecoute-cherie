@@ -7,7 +7,7 @@
       <div class="mx-auto px-6 py-6">
         <h1 class="font-serif tracking-widest text-xl mb-4 text-center">
           <nuxt-link to="/collections/frontpage">
-            show collection
+            show collections
           </nuxt-link>
         </h1>
         <article

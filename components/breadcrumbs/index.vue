@@ -15,6 +15,11 @@
 
 <script>
 export default {
+  props: {
+    breadcrumb: {
+      type: String
+    }
+  },
   computed: {
     crumbs() {
       const crumbs = []
