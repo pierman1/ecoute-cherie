@@ -1,7 +1,9 @@
 <template>
   <div>
     <layout-header />
-    <nuxt class="main" />
+    <transition name="fade">
+      <nuxt class="main" />
+    </transition>
     <layout-footer />
     <cart />
   </div>

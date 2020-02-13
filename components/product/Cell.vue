@@ -1,8 +1,17 @@
 <template>
-  <div class="product-cell">
-    {{ data.node.title }}
-    <!-- {{ data.node.images }} -->
-    <!-- {{ data.node.priceRange }} -->
+  <div class="product-cell md:px-2">
+    <nuxt-link
+      :to="`/product/${product.node.handle}`">
+      <img :src="product.node.images.edges[0].node.src" alt="">
+      <h2 class="font-serif text-lg">
+        {{ product.node.title }}
+      </h2>
+      <div
+        class="text-sm">
+        {{ product.node.priceRange.minVariantPrice.currencyCode }}
+        {{ product.node.priceRange.minVariantPrice.amount }}
+      </div>
+    </nuxt-link>
   </div>
 </template>
 
@@ -10,7 +19,7 @@
 export default {
   name: 'Cell',
   props: {
-    data: {
+    product: {
       type: [Object, Array]
     }
   }
@@ -19,7 +28,5 @@ export default {
 
 <style lang="scss" scoped>
 .product-cell {
-  color: #000;
-  margin-bottom: 10px;
 }
 </style>

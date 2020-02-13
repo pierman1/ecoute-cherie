@@ -29,7 +29,7 @@ export default {
   overflow: hidden;
 
   img {
-    height: 100%;
+    height: 100vh;
   }
 }
 </style>

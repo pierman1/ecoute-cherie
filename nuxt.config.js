@@ -61,6 +61,16 @@ export default {
   */
   axios: {
   },
+  webfontloader: {
+    custom: {
+      families: [
+        'Playfair+Display'
+      ],
+      urls: [
+        'https://fonts.googleapis.com/css?family=Playfair+Display&display=swap',
+      ]
+    }
+  },
   /*
   ** Build configuration
   */

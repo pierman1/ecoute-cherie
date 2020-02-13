@@ -1,15 +1,16 @@
 <template>
   <section v-if="product">
-    <div class="mx-auto">
+    <div class="container mx-auto px-6 py-6">
+
       <div
         v-for="(image, index) in product.images.edges"
         :key="image.node.id"
-        style="display: inline-flex;"
       >
-        <img v-if="index === 0" :src="image.node.src" :alt="image.node.alt" class="w-full sm:w-1/2 md:w-1/4 mb-4">
+        <img v-if="index === 0" :src="image.node.src" :alt="image.node.alt" class="w-full md:w-1/2 mb-4">
       </div>
+
     </div>
-    <div class="mx-auto px-8">
+    <div class="container mx-auto px-8">
 
       <h1 class="font-bold text-xl">{{ product.title }}</h1>
       <!-- <div class="text-sm mb-4">{{ product.vendor }}</div> -->

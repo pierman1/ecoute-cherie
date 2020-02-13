@@ -1,11 +1,19 @@
 <template>
-  <div class="mx-auto px-6 py-6">
-    <h1 class="font-bold text-xl mb-4">{{ collection.title }}</h1>
+  <div class="container mx-auto px-6 py-6">
+    <!-- <h1 class="font-bold text-xl mb-4">{{ collection.title }}</h1> -->
+    <breadcrumbs />
     <div
       v-if="collection.products"
       class="flex flex-row flex-wrap -mx-2"
     >
-      <div
+      <cell
+      class="w-full sm:w-1/2 mb-4"
+      v-for="(product, index) in collection.products.edges"
+      :key="`product_${index}`"
+      :product="product"
+      />
+
+      <!-- <div
         v-for="(product, index) in collection.products.edges"
         :key="`product_${index}`"
         @key="product.node.handle"
@@ -20,13 +28,21 @@
           <div class="text-sm">{{ product.node.vendor }}</div>
           <div class="text-sm">{{ product.node.priceRange.minVariantPrice.currencyCode }} {{ product.node.priceRange.minVariantPrice.amount }}</div>
         </nuxt-link>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 
 <script>
+import Breadcrumbs from '@/components/breadcrumbs/index.vue'
+import Cell from '@/components/product/Cell'
+
 export default {
+  scrollToTop: true,
+  components: {
+    Breadcrumbs,
+    Cell
+  },
   data () {
     return {
       collection: {}

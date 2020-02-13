@@ -1,5 +1,5 @@
 <template>
-  <div v-if="cart" class="cart">
+  <div v-if="cart" class="cart font-serif">
     <transition name="fade">
       <div class="background" v-if="showCart" @click="closeCart"></div>
     </transition>
