@@ -1,8 +1,7 @@
 <template>
   <section v-if="product">
-    <div class="container mx-auto px-6 py-6">
+    <div class="container mx-auto py-6">
       <breadcrumbs :breadcrumb="`/collections/${product.collections.edges[0].node.handle}`" />
-      {{product.collections.edges[0].node.handle}}
 
       <div
         v-for="(image, index) in product.images.edges"
@@ -15,7 +14,6 @@
     <div class="container mx-auto px-8">
 
       <h1 class="font-bold text-xl">{{ product.title }}</h1>
-      <!-- <div class="text-sm mb-4">{{ product.vendor }}</div> -->
 
       <div class="flex mb-4">
         <select name="" id="" v-model="quantity">
