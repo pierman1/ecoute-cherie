@@ -35,7 +35,7 @@
 
         <button
           @click="addToCart"
-          class="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-2 rounded">
+          class="bg-transparent hover:bg-blue text-black font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent">
           add to cart
         </button>
       </div>
