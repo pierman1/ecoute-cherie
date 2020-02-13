@@ -1,13 +1,13 @@
 
 <template>
   <div class="hero">
-    <div class="flex flex-wrap">
-      <div class="w-1/3 ml-auto py-6 h-full">
+    <div class="flex flex-wrap px-6">
+      <div class="w-1/2 md:w-1/3 ml-auto py-6 h-full">
         <div class="inner h-full bg-gray-500 overflow-hidden">
           <img class="object-cover" src="~/assets/images/dhm.jpeg" alt="">
         </div>
       </div>
-      <div class="w-1/3 mr-auto py-6 h-full">
+      <div class="w-1/2 md:w-1/3 mr-auto py-6 h-full">
         <div class="inner h-full bg-gray-500 overflow-hidden">
           <img class="object-cover" src="~/assets/images/dhm-3.jpeg" alt="">
         </div>
