@@ -1,6 +1,8 @@
 <template>
   <div class="container mx-auto px-6 py-6">
-    <h1 class="font-serif font-bold text-xl mb-4 tracking-widest">Collection</h1>
+    <h1 class="font-serif font-bold text-xl mb-4 tracking-widest">
+      Collection
+    </h1>
     <breadcrumbs />
     <div
       v-if="collection.products"
