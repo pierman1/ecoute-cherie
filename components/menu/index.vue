@@ -60,6 +60,11 @@ export default {
     closeMenu () {
       this.$store.commit('CLOSE_MENU')
     }
+  },
+  watch: {
+    '$route' (to, from){
+      this.closeMenu()
+    }
   }
 }
 </script>

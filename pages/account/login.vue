@@ -1,6 +1,6 @@
 <template>
-  <section>
-    <div class="w-full py-8 max-w-xs mx-auto">
+  <section class="h-full">
+    <div class="w-full mt-12 max-w-xs mx-auto">
       <h1 class="font-bold text-xl mb-4">
         Login
       </h1>

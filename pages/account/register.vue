@@ -6,6 +6,7 @@
       </h1>
       <user-form
         @formsubmit="register"
+        type="register"
         submitButtonText="Register">
         <p>
           Already have an account?
@@ -33,6 +34,8 @@ export default {
     return {
       customer: {},
       newCustomer: {
+        firstName: '',
+        lastName: '',
         email: '',
         password: ''
       }
@@ -43,8 +46,10 @@ export default {
       this.$axios.$post('https://pierttt.myshopify.com/api/graphql', {
         query: `mutation {
           customerCreate(input: {
-              email: "${customer.email}",
-              password: "${customer.password}"
+              firstName: "${customer.firstName ? customer.firstName : ''}",
+              lastName: "${customer.lastName ? customer.lastName : ''}",
+              email: "${customer.email ? customer.email : ''}",
+              password: "${customer.password ? customer.password : ''}"
           }) {
             userErrors {
               field

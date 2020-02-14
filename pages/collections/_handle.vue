@@ -1,8 +1,7 @@
 <template>
   <div class="container mx-auto px-6 py-6">
     <h1 class="font-serif font-bold text-xl mb-4 tracking-widest">
-      Collection
-    </h1>
+      Collection</h1>
     <breadcrumbs />
     <div
       v-if="collection.products"
@@ -17,7 +16,7 @@
 
       <!-- <div
         v-for="(product, index) in collection.products.edges"
-        :key="`product_${index}`"
+        :key="`product_s_${index}`"
         @key="product.node.handle"
         class="w-full sm:w-1/2 md:w-1/4 mb-4 px-2"
       >

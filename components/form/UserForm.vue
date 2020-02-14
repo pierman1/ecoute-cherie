@@ -1,24 +1,42 @@
 <template>
   <form class="bg-white rounded pt-6 pb-8 mb-4" @submit.prevent="formsubmit">
+    <div class="mb-4" v-if="type === 'register'">
+      <validation-provider>
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="firstName">
+          First name
+        </label>
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="firstName"
+          v-model="user.firstName"
+          type="text"
+          placeholder="Username">
+      </validation-provider>
+    </div>
+    <div class="mb-4" v-if="type === 'register'">
+      <validation-provider>
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="lastName">
+          Last name
+        </label>
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="lastName"
+          v-model="user.lastName"
+          type="text"
+          placeholder="Username">
+      </validation-provider>
+    </div>
     <div class="mb-4">
-      <validation-provider rules="required" v-slot="{ errors }">
+      <validation-provider>
         <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
           Email
         </label>
         <input
           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          :class="{ 'border-red-500': errors[0] }"
           id="email"
           v-model="user.email"
-          type="text"
+          type="email"
           placeholder="Username">
-
-        <span
-          class="text-red-500 text-xs italic"
-          v-if="errors"
-        >
-          {{ errors[0] }}
-        </span>
       </validation-provider>
     </div>
     <div class="mb-6">
@@ -69,13 +87,19 @@ export default {
     submitButtonText: {
       type: String,
       default: 'Continue'
+    },
+    type: {
+      type: String,
+      default: 'login'
     }
   },
   data () {
     return {
       user: {
         email: '',
-        password: ''
+        password: '',
+        firstName: '',
+        lastName: ''
       }
     }
   },

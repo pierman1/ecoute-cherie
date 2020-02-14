@@ -7,7 +7,7 @@
 
           <div
           v-for="(image, index) in product.images.edges"
-          :key="image.node.id"
+          :key="`image_${image.node.id}`"
           >
           <img v-if="index === 0" :src="image.node.src" :alt="image.node.alt" class="w-full">
         </div>
@@ -17,7 +17,7 @@
         <h1 class="font-bold text-xl">{{ product.title }}</h1>
 
         <div class="flex mb-4">
-          <select name="" id="" v-modeel="quantity">
+          <select name="" id="" v-model="quantity">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -26,7 +26,7 @@
           <select name="" id="" v-model="variant" v-show="product.variants.edges.length > 1">
             <option
               v-for="variant in product.variants.edges"
-              :key="variant.node.id"
+              :key="`variant_${variant.node.id}`"
               :value="variant.node.id">
               {{ variant.node.title }}
             </option>
