@@ -1,6 +1,6 @@
 <template>
   <section v-if="product">
-    <div class="container flex flex-column md:flex-row md:items-end flex-wrap mx-auto py-6">
+    <div class="container flex flex-column md:flex-row md:items-end flex-wrap mx-auto px-6 py-6">
 
       <div class="w-full md:w-1/2 mb-4">
           <breadcrumbs :breadcrumb="`/collections/${product.collections.edges[0].node.handle}`" />
@@ -17,7 +17,7 @@
         <h1 class="font-bold text-xl">{{ product.title }}</h1>
 
         <div class="flex mb-4">
-          <select name="" id="" v-model="quantity">
+          <select name="" id="" v-modeel="quantity">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
