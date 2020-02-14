@@ -1,8 +1,18 @@
 <template>
   <section>
-    <div class="mx-auto px-8">
-      <h1 class="font-bold text-xl mb-4">Account</h1>
-      {{ customer }}
+    <div class="container mx-auto px-8 py-8">
+      <h1 class="font-bold text-xl mb-4 font-serif">Account</h1>
+      <ul v-if="customer">
+        <li>
+          Customer name: {{ customer.firstName  || '-' }}
+        </li>
+        <li>
+          Customer last name: {{ customer.lastName || '-' }}
+        </li>
+        <li>
+          Email: {{ customer.email || '-' }}
+        </li>
+      </ul>
     </div>
   </section>
 </template>

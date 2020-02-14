@@ -1,7 +1,7 @@
 {
-  "name": "shopifyah",
+  "name": "Ecoute",
   "version": "1.0.0",
-  "description": "My marvelous Nuxt.js project",
+  "description": "Écoute chérie",
   "author": "Pierre Bleeker",
   "private": true,
   "scripts": {
@@ -14,7 +14,9 @@
     "@nuxtjs/axios": "^5.3.6",
     "contentful": "^7.10.0",
     "nuxt": "^2.0.0",
-    "nuxt-webfontloader": "^1.1.0"
+    "nuxt-webfontloader": "^1.1.0",
+    "vee-validate": "^3.2.5",
+    "vue-toasted": "^1.1.27"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^1.0.0",

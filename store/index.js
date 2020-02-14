@@ -1,6 +1,7 @@
 export const state = () => ({
   cart: {},
   showCart: false,
+  showMenu: false,
   checkoutId: null,
   customerAccessToken: null
 })
@@ -13,6 +14,16 @@ export const mutations = {
   },
   SHOW_CART (state) {
     state.showCart = true
+    document.querySelector('body').classList.add('cart-open')
+    document.querySelector('html').classList.add('cart-open')
+  },
+  CLOSE_MENU (state) {
+    state.showMenu = false
+    document.querySelector('body').classList.remove('cart-open')
+    document.querySelector('html').classList.remove('cart-open')
+  },
+  SHOW_MENU (state) {
+    state.showMenu = true
     document.querySelector('body').classList.add('cart-open')
     document.querySelector('html').classList.add('cart-open')
   },

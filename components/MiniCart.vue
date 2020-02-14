@@ -17,7 +17,7 @@ import { mapState } from 'vuex'
 
 export default {
   computed: mapState({
-    cart: state => state.cart,
+    cart: state => state.cart
   }),
   methods: {
     showCart () {

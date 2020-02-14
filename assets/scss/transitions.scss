@@ -27,3 +27,18 @@
     transform: translateX(0);
   }
 }
+
+.slide-left-enter-active {
+  animation: slide-in-left .4s;
+}
+.slide-left-leave-active {
+  animation: slide-in-left .2s reverse;
+}
+@keyframes slide-in-left {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}

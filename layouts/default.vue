@@ -4,6 +4,7 @@
     <transition name="fade">
       <nuxt class="main" />
     </transition>
+    <layout-menu />
     <layout-footer />
     <cart />
   </div>
@@ -13,12 +14,14 @@
 import Cart from '@/components/Cart'
 import LayoutFooter from '@/components/LayoutFooter'
 import LayoutHeader from '@/components/LayoutHeader'
+import LayoutMenu from '@/components/menu'
 
 export default {
   components: {
     Cart,
     LayoutFooter,
-    LayoutHeader
+    LayoutHeader,
+    LayoutMenu
   }
 }
 </script>

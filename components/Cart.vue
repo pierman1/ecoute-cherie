@@ -14,7 +14,8 @@
 
             <div v-if="cart.lineItems && cart.lineItems.edges.length" class="line-items">
               <div
-                v-for="line in cart.lineItems.edges"
+                v-for="(line, index) in cart.lineItems.edges"
+                :key="`line_${index}`"
                 @key="line.node.id"
                 class="mb-4"
               >
