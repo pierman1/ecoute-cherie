@@ -1,6 +1,6 @@
 <template>
   <section v-if="product">
-    <div class="container mx-auto py-6">
+    <div class="container mx-auto px-6 py-6">
       <breadcrumbs :breadcrumb="`/collections/${product.collections.edges[0].node.handle}`" />
 
       <div
@@ -11,7 +11,7 @@
       </div>
 
     </div>
-    <div class="container mx-auto px-8">
+    <div class="container mx-auto px-6">
 
       <h1 class="font-bold text-xl">{{ product.title }}</h1>
 

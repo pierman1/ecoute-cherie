@@ -1,10 +1,10 @@
 <template>
   <div class="container mx-auto px-6 py-6">
-    <!-- <h1 class="font-bold text-xl mb-4">{{ collection.title }}</h1> -->
+    <h1 class="font-serif font-bold text-xl mb-4 tracking-widest">Collection</h1>
     <breadcrumbs />
     <div
       v-if="collection.products"
-      class="flex flex-row flex-wrap -mx-2"
+      class="w-full flex flex-row flex-wrap mx-auto"
     >
       <cell
       class="w-full sm:w-1/2 mb-4"
