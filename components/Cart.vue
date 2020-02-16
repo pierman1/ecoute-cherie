@@ -1,5 +1,5 @@
 <template>
-  <div v-if="cart" class="cart font-serif">
+  <div class="cart font-serif">
     <transition name="fade">
       <div class="background" v-if="showCart" @click="closeCart"></div>
     </transition>
@@ -75,7 +75,7 @@ export default {
       this.$store.commit('CLOSE_CART')
     },
     getCart () {
-      this.$axios.$post('https://pierttt.myshopify.com/api/graphql', {
+      this.$axios.$post('https://ecoute-cherie.myshopify.com/api/graphql', {
         query: `{
           node(id: "${this.checkoutId}") {
             ... on Checkout {
@@ -113,7 +113,7 @@ export default {
       })
     },
     removeCartItem (lineItemId) {
-      this.$axios.$post('https://pierttt.myshopify.com/api/graphql', {
+      this.$axios.$post('https://ecoute-cherie.myshopify.com/api/graphql', {
         query: `mutation {
           checkoutLineItemsRemove(lineItemIds: ["${lineItemId}"], checkoutId: "${this.checkoutId}") {,
             userErrors {
@@ -134,6 +134,7 @@ export default {
     },
     initCart () {
       this.checkoutId = window.localStorage.getItem('shopify_checkout_id')
+      console.log('this.checkoutId', this.checkoutIds)
       if (!this.checkoutId) {
         this.initCheckout()
       } else {
@@ -142,7 +143,7 @@ export default {
       }
     },
     initCheckout() {
-      this.$axios.$post('https://pierttt.myshopify.com/api/graphql', {
+      this.$axios.$post('https://ecoute-cherie.myshopify.com/api/graphql', {
         query: `mutation {
           checkoutCreate(input: {}) {
             userErrors {

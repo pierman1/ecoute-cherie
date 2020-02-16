@@ -14,6 +14,8 @@
           class="w-full mb-4"
           >
 
+          {{collections}}
+
           <div class="w-full flex flex-row flex-wrap">
 <!--
             <cell
@@ -48,7 +50,7 @@ export default {
     }
   },
   asyncData ({ $axios }) {
-    return $axios.$post(`https://pierttt.myshopify.com/api/graphql`, {
+    return $axios.$post(`https://ecoute-cherie.myshopify.com/api/graphql`, {
         query: `{
           collections(first:250) {
             edges {

@@ -66,7 +66,7 @@ export default {
     checkoutId: state => state.checkoutId
   }),
   asyncData ({ $axios, params }) {
-    return $axios.$post(`https://pierttt.myshopify.com/api/graphql`, {
+    return $axios.$post(`https://ecoute-cherie.myshopify.com/api/graphql`, {
         query: `{
           productByHandle(handle: "${params.handle}") {
             id
@@ -110,7 +110,7 @@ export default {
   },
   methods: {
     addToCart () {
-      this.$axios.$post('https://pierttt.myshopify.com/api/graphql', {
+      this.$axios.$post('https://ecoute-cherie.myshopify.com/api/graphql', {
         query: `mutation {
           checkoutLineItemsAdd(lineItems: [{ variantId: "${this.variant}", quantity: ${this.quantity} }], checkoutId: "${this.checkoutId}") {
             checkout {

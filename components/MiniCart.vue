@@ -6,8 +6,8 @@
     <span class="invisible md:visible font-serif flex mr-2 tracking-widest">
       cart
     </span>
-    <span v-if="cart.lineItems" class="font-serif inline-block border-solid border border-black rounded-full h-6 w-6 flex items-center justify-center">
-      {{ cart.lineItems.edges.length }}
+    <span v-if="cart && cart.lineItems && cart.lineItems.edges" class="font-serif inline-block border-solid border border-black rounded-full h-6 w-6 flex items-center justify-center">
+      {{ cart.lineItems.edges.length || 0 }}
     </span>
   </button>
 </template>

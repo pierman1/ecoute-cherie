@@ -16,9 +16,27 @@
         <h1 class="font-bold text-xl mb-4">Menu</h1>
 
         <div class="text-xl font-bold">
-          Account
+          Login
         </div>
         <ul>
+          <li
+            class="h-12 flex items-center"
+            v-for="(item, index) in loginMenuItems"
+            :key="`item_${index}`"
+          >
+            <nuxt-link :to="item.path">
+              {{ item.name }}
+            </nuxt-link>
+          </li>
+        </ul>
+
+        <div
+          class="text-xl font-bold"
+          v-if="$store.state.customer">
+          Account
+        </div>
+        <ul
+          v-if="$store.state.customer">
           <li
             class="h-12 flex items-center"
             v-for="(item, index) in accountMenuItems"
@@ -29,6 +47,7 @@
             </nuxt-link>
           </li>
         </ul>
+
       </div>
     </transition>
   </div>
@@ -44,7 +63,7 @@ export default {
   }),
   data () {
     return {
-      accountMenuItems: [
+      loginMenuItems: [
         {
           name: 'Login',
           path: '/account/login'
@@ -52,6 +71,16 @@ export default {
         {
           name: 'Register',
           path: '/account/register'
+        }
+      ],
+      accountMenuItems: [
+        {
+          name: 'Account',
+          path: '/account'
+        },
+        {
+          name: 'Orders',
+          path: '/account/orders'
         }
       ]
     }

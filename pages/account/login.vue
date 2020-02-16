@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     login (customer) {
-      this.$axios.$post('https://pierttt.myshopify.com/api/graphql', {
+      this.$axios.$post('https://ecoute-cherie.myshopify.com/api/graphql', {
         query: `mutation {
           customerAccessTokenCreate(input: {
             email: "${customer.email}",
@@ -64,11 +64,11 @@ export default {
             })
             this.$router.push('/account')
 
-            return 
+            return
           }
 
           console.log('response', response.data.customerAccessTokenCreate)
-          
+
           if (response.data.customerAccessTokenCreate.customerUserErrors && response.data.customerAccessTokenCreate.customerUserErrors[0]) {
             this.$toasted.show(response.customerAccessTokenCreate.customerUserErrors[0].message, {
               type: 'error',

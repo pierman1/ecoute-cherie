@@ -50,7 +50,7 @@ export default {
     }
   },
   asyncData ({ $axios, params }) {
-    return $axios.$post(`https://pierttt.myshopify.com/api/graphql`, {
+    return $axios.$post(`https://ecoute-cherie.myshopify.com/api/graphql`, {
         query: `{
           collectionByHandle(handle: "${params.handle}") {
             id,

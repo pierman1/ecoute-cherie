@@ -2,28 +2,42 @@
   <section>
     <div class="container mx-auto px-8 py-8">
       <h1 class="font-bold text-xl mb-4 font-serif">Account</h1>
-      <ul v-if="customer">
-        {{customer.id}}
+
+      <ul v-if="$store.state.customer">
         <li>
-          Customer name: {{ customer.firstName  || '-' }}
+          Customer name: {{ $store.state.customer.firstName  || '-' }}
         </li>
         <li>
-          Customer last name: {{ customer.lastName || '-' }}
+          Customer last name: {{ $store.state.customer.lastName || '-' }}
         </li>
         <li>
-          Email: {{ customer.email || '-' }}
+          Email: {{ $store.state.customer.email || '-' }}
         </li>
       </ul>
 
-      <button @click="updateCustomer">
-        click
-      </button>
+      <account-form />
+
+      <order-history />
+
+      <logout />
+
     </div>
+
   </section>
 </template>
 
 <script>
+import AccountForm from '@/components/form/AccountForm.vue'
+import OrderHistory from '@/components/orders/History.vue'
+import Logout from '@/components/account/Logout.vue'
+
 export default {
+  components: {
+    AccountForm,
+    AccountForm,
+    OrderHistory,
+    Logout
+  },
   data () {
     return {
       customer: null
@@ -33,7 +47,7 @@ export default {
     getCustomer () {
       const token = window.localStorage.getItem('shopify_customer_access_token')
 
-      this.$axios.$post('https://pierttt.myshopify.com/api/graphql', {
+      this.$axios.$post('https://ecoute-cherie.myshopify.com/api/graphql', {
         query: `{
           customer(customerAccessToken: "${token}") {
             id
@@ -51,31 +65,12 @@ export default {
           }
         }`})
         .then(response => {
-          this.customer = response.data.customer
-        })
-    },
-    updateCustomer () {
-      const token = window.localStorage.getItem('shopify_customer_acces_token')
-
-      this.$axios.$post('https://pierttt.myshopify.com/api/graphql', {
-        query: `mutation {
-          customerUpdate(
-            customerAccessToken: "${token}",
-            customer: {
-              
-            }
-          ) {
-            userErrors {
-              field
-              message
-            }
-            customer {
-              id
-            }
+          if (!response.data.customer) {
+            this.$router.push('/account/login')
           }
-        }`})
-        .then(response => {
-          console.log('response',  response)
+
+          this.customer = response.data.customer
+          this.$store.commit('SET_CUSTOMER', this.customer)
         })
     }
   },

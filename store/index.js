@@ -3,7 +3,11 @@ export const state = () => ({
   showCart: false,
   showMenu: false,
   checkoutId: null,
-  customerAccessToken: null
+  customerAccessToken: null,
+  customer: {
+    firstName: '',
+    lastName: ''
+  }
 })
 
 export const mutations = {
@@ -37,5 +41,8 @@ export const mutations = {
   SET_CUSTOMER_ACCESS_TOKEN (state, token) {
     state.customerAccessToken = token
     window.localStorage.setItem('shopify_customer_access_token', token)
+  },
+  SET_CUSTOMER (state, customer) {
+    state.customer = customer
   }
 }

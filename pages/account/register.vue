@@ -10,7 +10,7 @@
         submitButtonText="Register">
         <p>
           Already have an account?
-          <nuxt-link 
+          <nuxt-link
             class="font-bold"
             to="/account/login">
             Login
@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     register (customer) {
-      this.$axios.$post('https://pierttt.myshopify.com/api/graphql', {
+      this.$axios.$post('https://ecoute-cherie.myshopify.com/api/graphql', {
         query: `mutation {
           customerCreate(input: {
               firstName: "${customer.firstName ? customer.firstName : ''}",
