@@ -13,36 +13,65 @@
         v-if="showMenu"
         class="panel bg-white"
       >
-        <h1 class="font-bold text-xl mb-4">Menu</h1>
+        <div class="menu-header flex justify-between items-center px-6 py-4">
+          <h1 class="font-serif tracking-widest text-sm" @closeMenu="">menu</h1>
 
-        <div class="text-xl font-bold">
+          <button
+            class="text-sm tracking-widest"
+            type="button"
+            name="button" @click="closeMenu">
+            close
+          </button>
+        </div>
+
+        <div
+          v-if="!$store.state.customer.email"
+          class="text-md px-6 py-4 font-bold font-serif tracking-widest">
           Login
         </div>
-        <ul>
+        <ul
+          v-if="!$store.state.customer.email"
+          class="mb-4 border-t">
           <li
-            class="h-12 flex items-center"
+            class="flex items-center flexs"
             v-for="(item, index) in loginMenuItems"
             :key="`item_${index}`"
           >
-            <nuxt-link :to="item.path">
+            <nuxt-link :to="item.path" class="font-sans px-6 py-4 border-b w-full md:text-sm">
               {{ item.name }}
             </nuxt-link>
           </li>
         </ul>
 
         <div
-          class="text-xl font-bold"
+          class="text-md px-6 py-4 font-bold font-serif tracking-widest"
           v-if="$store.state.customer">
           Account
         </div>
         <ul
-          v-if="$store.state.customer">
+          v-if="$store.state.customer" class="font-sans mb-4 border-t">
           <li
-            class="h-12 flex items-center"
+            class="flex items-center flexs"
             v-for="(item, index) in accountMenuItems"
             :key="`item_${index}`"
           >
-            <nuxt-link :to="item.path">
+            <nuxt-link :to="item.path" class="font-sans px-6 py-4 border-b w-full md:text-sm">
+              {{ item.name }}
+            </nuxt-link>
+          </li>
+        </ul>
+
+        <div
+          class="text-md px-6 py-4 font-bold font-serif tracking-widest">
+          More
+        </div>
+        <ul class="font-sans mb-4 border-t">
+          <li
+            class="flex items-center flexs"
+            v-for="(item, index) in moreMenuItems"
+            :key="`item_${index}`"
+          >
+            <nuxt-link :to="item.path" class="font-sans px-6 py-4 border-b w-full md:text-sm">
               {{ item.name }}
             </nuxt-link>
           </li>
@@ -82,6 +111,24 @@ export default {
           name: 'Orders',
           path: '/account/orders'
         }
+      ],
+      moreMenuItems: [
+        {
+          name: 'Privacy',
+          path: '/privacy-policy'
+        },
+        {
+          name: 'Terms & conditions',
+          path: '/terms-and-conditions'
+        },
+        {
+          name: 'Shipments',
+          path: '/account/orders'
+        },
+        {
+          name: 'Contact',
+          path: '/contact'
+        }
       ]
     }
   },
@@ -117,8 +164,11 @@ export default {
   width: 350px;
   max-width: 100%;
   height: 100vh;
-  padding: 20px 40px;
   display: flex;
   flex-direction: column;
+}
+
+.menu-header {
+  height: 60px;
 }
 </style>

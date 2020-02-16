@@ -3,24 +3,29 @@
     <div class="container mx-auto px-8 py-8">
       <h1 class="font-bold text-xl mb-4 font-serif">Account</h1>
 
-      <ul v-if="$store.state.customer">
-        <li>
-          Customer name: {{ $store.state.customer.firstName  || '-' }}
-        </li>
-        <li>
-          Customer last name: {{ $store.state.customer.lastName || '-' }}
-        </li>
-        <li>
-          Email: {{ $store.state.customer.email || '-' }}
-        </li>
-      </ul>
-
-      <account-form />
-
-      <order-history />
-
-      <logout />
-
+      <div class="flex flex-wrap">
+        <div class="w-full md:w-1/4">
+          <div class="text-md font-serif tracking-widest">
+            Personal details
+          </div>
+          <ul class="text-sm" v-if="$store.state.customer">
+            <li>
+               Name: {{ $store.state.customer.firstName  || '-' }}
+            </li>
+            <li>
+              Lastname: {{ $store.state.customer.lastName || '-' }}
+            </li>
+            <li>
+              E-mail: {{ $store.state.customer.email || '-' }}
+            </li>
+          </ul>
+        </div>
+        <div class="w-full md:w-3/4">
+          <account-form class="md:mt-6" />
+          <order-history />
+          <logout />
+        </div>
+      </div>
     </div>
 
   </section>
@@ -58,7 +63,10 @@ export default {
             orders(first: 10) {
               edges {
                 node {
+                  id
+                  name
                   totalPrice
+                  processedAt
                 }
               }
             }

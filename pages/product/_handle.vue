@@ -16,6 +16,10 @@
       <div class="w-full md:w-1/2 md:pl-12">
         <h1 class="font-bold text-xl">{{ product.title }}</h1>
 
+        <span>
+          € {{ product.priceRange.minVariantPrice.amount }}
+        </span>
+
         <div class="flex mb-4">
           <select name="" id="" v-model="quantity">
             <option value="1">1</option>
@@ -99,6 +103,16 @@ export default {
                   src
                   altText
                 }
+              }
+            }
+            priceRange {
+              minVariantPrice {
+                amount
+                currencyCode
+              }
+              maxVariantPrice {
+                amount
+                currencyCode
               }
             }
           }

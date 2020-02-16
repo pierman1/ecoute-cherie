@@ -41,14 +41,13 @@ export default {
             email: "${customer.email}",
             password: "${customer.password}"}
           ) {
+            userErrors {
+              field
+              message
+            }
             customerAccessToken {
               accessToken
               expiresAt
-            }
-            customerUserErrors {
-              code
-              field
-              message
             }
           }
         }`})
@@ -69,8 +68,8 @@ export default {
 
           console.log('response', response.data.customerAccessTokenCreate)
 
-          if (response.data.customerAccessTokenCreate.customerUserErrors && response.data.customerAccessTokenCreate.customerUserErrors[0]) {
-            this.$toasted.show(response.customerAccessTokenCreate.customerUserErrors[0].message, {
+          if (response.data.customerAccessTokenCreate.userErrors && response.data.customerAccessTokenCreate.userErrors[0]) {
+            this.$toasted.show(response.data.customerAccessTokenCreate.userErrors[0].message, {
               type: 'error',
               duration: 5000
             })

@@ -1,5 +1,5 @@
 <template>
-  <header class="fixed z-50 top-0 left-0 w-full bg-white border b-bottom py-3">
+  <header class="fixed z-50 top-0 left-0 w-full bg-white border-b b-bottom py-3">
     <div class="mx-auto px-8">
       <div class="flex justify-center w-full items-center">
         <div class="absolute top-0 left-0 pl-4 flex items-center h-full">
@@ -31,6 +31,10 @@ export default {
 </script>
 
 <style>
+  header {
+    height: 60px;
+  }
+
   .logo {
     font-weight: 700;
     width: 200px;

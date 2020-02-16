@@ -1,16 +1,34 @@
 <template lang="html">
   <div class="order-history">
-    <h1 class="font-bold text-xl mb-4 font-serif">Order history</h1>
+    <h1 class="text-md font-serif tracking-widest">
+      Order history
+    </h1>
 
-    <pre>
-      {{ $store.state.customer.orders }}
-    </pre>
+    <div v-if="$store.state.customer.orders && $store.state.customer.orders.edges">
+
+      <order
+        v-for="(order, index) in $store.state.customer.orders.edges"
+        :order="order"
+        :key="`order_${index}`"
+      />
+
+    </div>
+
+    <div v-else>
+      <p>
+        No order history, <nuxt-link to="/">start shoping</nuxt-link>
+      </p>
+    </div>
   </div>
 </template>
 
 <script>
+import Order from './Order.vue'
 export default {
-  name: 'History'
+  name: 'History',
+  components: {
+    Order
+  }
 }
 </script>
 

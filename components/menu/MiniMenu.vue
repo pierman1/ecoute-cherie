@@ -27,6 +27,7 @@ export default {
   width: 15px;
   height: 15px;
   position: relative;
+  cursor: pointer;
 
   span {
     width: 100%;

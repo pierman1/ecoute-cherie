@@ -4,10 +4,7 @@ export const state = () => ({
   showMenu: false,
   checkoutId: null,
   customerAccessToken: null,
-  customer: {
-    firstName: '',
-    lastName: ''
-  }
+  customer: ''
 })
 
 export const mutations = {
@@ -44,5 +41,9 @@ export const mutations = {
   },
   SET_CUSTOMER (state, customer) {
     state.customer = customer
+  },
+  REMOVE_CUSTOMER (state) {
+    state.customer = {}
+    console.log('removedddd')
   }
 }
