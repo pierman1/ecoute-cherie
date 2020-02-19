@@ -1,13 +1,15 @@
 <template>
-  <div class="cart font-serif">
+  <div class="cart font-sans">
     <transition name="fade">
       <div class="background" v-if="showCart" @click="closeCart"></div>
     </transition>
 
     <transition name="slide">
       <div v-if="showCart" class="panel bg-white">
-        <h1 class="font-bold text-xl mb-4">Cart</h1>
-        <button class="absolute top-3 right-0 mt-3 mr-3 text-sm" @click="closeCart">close</button>
+        <div class="flex justify-between w-full h-16 px-5 items-center">
+          <h1 class="font-bold text-xl">Cart</h1>
+          <button class="text-sm" @click="closeCart">close</button>
+        </div>
 
         <div class="scroll-outer">
           <div class="scroll-inner">
@@ -17,7 +19,7 @@
                 v-for="(line, index) in cart.lineItems.edges"
                 :key="`line_${index}`"
                 @key="line.node.id"
-                class="mb-4 flex flex-row border-t"
+                class="p-4 mb-4 flex flex-row border-t"
               >
 
                 <div class="w-32 h-32">
@@ -62,9 +64,11 @@
           </div>
         </div>
 
-        <div>Subtotal € {{ cart.subtotalPrice }}</div>
-        <div>Total tax € {{ cart.totalTax }}</div>
-        <div>Total price € {{ cart.totalPrice }}</div>
+        <div class="bg-gray-700 text-white p-4">
+          Subtotal € {{ cart.subtotalPrice }}
+        </div>
+        <!-- <div>Total tax € {{ cart.totalTax }}</div> -->
+        <div class="bg-gray-100 text-black p-4">Total price € {{ cart.totalPrice }}</div>
 
         <a
           v-if="cart.webUrl && cart.lineItems && cart.lineItems.edges.length"
@@ -175,7 +179,6 @@ export default {
     width: 350px;
     max-width: 100%;
     height: 100vh;
-    padding: 20px 40px;
     display: flex;
     flex-direction: column;
   }
@@ -197,7 +200,6 @@ export default {
   .proceed {
     width: 100%;
     padding: 20px 0;
-    margin-top: 20px;
     text-align: center;
     background: #000;
     color: #fff;

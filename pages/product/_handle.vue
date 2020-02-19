@@ -75,6 +75,7 @@ export default {
   }),
   apollo: {
     product: {
+      prefetch: true,
       query: ProductByHandle,
       loadingKey: 'loading',
       variables () {
@@ -92,8 +93,8 @@ export default {
       this.$apollo.mutate({
         mutation: CheckoutLineItemsAdd,
         variables: {
-          variantId: this.variant,
-          quantity: this.quantity,
+          variantId: this.product.variants.edges[0].node.id,
+          quantity: Number(this.quantity),
           checkoutId: this.checkoutId
         }
       })
@@ -101,13 +102,7 @@ export default {
         this.$store.commit('SET_CART', data.checkoutLineItemsAdd.checkout)
         this.$store.commit('SHOW_CART')
       })
-    },
-    selectFirstVariant () {
-      this.variant = this.product.variants.edges[0].node.id
     }
-  },
-  mounted () {
-    this.selectFirstVariant()
   }
 }
 </script>
