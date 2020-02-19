@@ -17,21 +17,42 @@
                 v-for="(line, index) in cart.lineItems.edges"
                 :key="`line_${index}`"
                 @key="line.node.id"
-                class="mb-4"
+                class="mb-4 flex flex-row border-t"
               >
-                {{ line.node.title }}
-                <img :src="line.node.variant.image.src" alt="">
-                <div class="flex">
-                  <button>-</button>
-                  <div>{{ line.node.quantity }}x</div>
-                  <button>+</button>
+
+                <div class="w-32 h-32">
+                  <img class="object-cover h-full" :src="line.node.variant.image.src" alt="">
                 </div>
-                <div
-                  @click="removeCartItem(line.node.id)"
-                  class="text-sm text-red-500 cursor-pointer"
-                >
-                  remove
+
+                <div class="flex flex-col w-full px-2 font-sans text-sm">
+                  <span class="text-xl font-serif">
+                    {{ line.node.title }}
+                  </span>
+                  <span class="text-xl font-serif">
+                    €{{ line.node.variant.price * line.node.quantity }}
+                  </span>
+                  <div class="flex justify-between mt-auto">
+                    <button
+                      class="bg-black text-white px-4 py-2"
+                      @click="updateCartItem(line.node.variant.id, -1)">
+                      -
+                    </button>
+                    <div class="flex items-center">{{ Number(line.node.quantity) }}x</div>
+                    <button
+                      class="bg-black text-white px-4 py-2"
+                      @click="updateCartItem(line.node.variant.id, 1)">
+                      +
+                    </button>
+                  </div>
+                  <div
+                    @click="removeCartItem(line.node.id)"
+                    class="text-xs text-red-400 cursor-pointer"
+                    >
+                    remove
+                  </div>
                 </div>
+
+
               </div>
             </div>
             <div v-else>
@@ -59,7 +80,7 @@
 
 <script>
 import { mapState } from 'vuex'
-
+import CartService from '~/service/cartService.js'
 export default {
   data () {
     return {
@@ -75,42 +96,57 @@ export default {
       this.$store.commit('CLOSE_CART')
     },
     getCart () {
-      this.$axios.$post('https://ecoute-cherie.myshopify.com/api/graphql', {
-        query: `{
-          node(id: "${this.checkoutId}") {
-            ... on Checkout {
-              webUrl
-              subtotalPrice
-              totalTax
-              totalPrice
-              lineItems (first:250) {
-                pageInfo {
-                  hasNextPage
-                  hasPreviousPage
-                }
-                edges {
-                  node {
-                    id
-                    title
-                    variant {
-                      id
-                      title
-                      image {
-                        src
-                      }
-                      price
-                    }
-                    quantity
-                  }
-                }
-              }
-            }
-          }
-        }`
-      })
+      CartService.getCart(this.$axios, this.checkoutId)
       .then(response => {
         this.$store.commit('SET_CART', response.data.node)
       })
+    },
+    updateCartItem (variantId, quantity) {
+      CartService.updateCartItem(this.$axios, this.checkoutId, variantId, quantity)
+        .then(response => {
+          this.$store.commit('SET_CART', response.data.checkoutLineItemsAdd.checkout)
+        })
+        .catch(error => {
+          console.log('error', error)
+        })
+      // console.log(variantId, quantity)
+      // this.$axios.$post('https://ecoute-cherie.myshopify.com/api/graphql', {
+      //   query: `mutation {
+      //     checkoutLineItemsAdd(lineItems: [{ variantId: "${variantId}", quantity: ${quantity} }], checkoutId: "${this.checkoutId}") {
+      //       checkout {
+      //         webUrl
+      //         subtotalPrice
+      //         totalTax
+      //         totalPrice
+      //         lineItems (first:250) {
+      //           pageInfo {
+      //             hasNextPage
+      //             hasPreviousPage
+      //           }
+      //           edges {
+      //             node {
+      //               id
+      //               title
+      //               variant {
+      //                 id
+      //                 title
+      //                 image {
+      //                   src
+      //                 }
+      //                 price
+      //               }
+      //               quantity
+      //             }
+      //           }
+      //         }
+      //       }
+      //     }
+      //   }`}).then(response => {
+      //   console.log('response', response)
+      // }).catch(error => {
+      //   console.log('error', error)
+      // })
+
     },
     removeCartItem (lineItemId) {
       this.$axios.$post('https://ecoute-cherie.myshopify.com/api/graphql', {
@@ -190,10 +226,6 @@ export default {
     padding: 20px 40px;
     display: flex;
     flex-direction: column;
-  }
-
-  img {
-    width: 80px;
   }
 
   .scroll-outer {
