@@ -1,13 +1,33 @@
 <template>
-  <div>
-    <h1>Blog</h1>
-    <div v-for="blog in blogs" class="blog">
+  <section class="container mt-12 max-w-xl mx-auto">
+    <h1 class="font-bold font-serif text-xl mb-10 tracking-widest">
+      Blog
+    </h1>
+    <div
+      class="blog-item mb-10"
+      v-for="(blog, index) in blogs"
+      :key="`blog_link_${index}`"
+    >
       <nuxt-link :to="`/blog/${blog.fields.slug}`">
-        <h2>{{ blog.fields.title }}</h2>
-        {{ blog.fields.text }}
+        <img
+          v-if="blog.fields.heroImage.fields.file"
+          :src="blog.fields.heroImage.fields.file.url"
+          alt=""
+        >
+        <h2 class="font-bold text-xl">
+          {{ blog.fields.title }}
+        </h2>
+
+        <p
+          v-if="blog.fields.description"
+          class="text-sm"
+        >
+          {{blog.fields.description}}
+        </p>
+
       </nuxt-link>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
