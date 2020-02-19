@@ -3,6 +3,7 @@
     <div class="container flex flex-column md:flex-row md:items-end flex-wrap mx-auto px-6 py-6">
 
       <div class="w-full md:w-1/2 mb-4">
+
           <breadcrumbs :breadcrumb="`/collections/${product.collections.edges[0].node.handle}`" />
 
           <div
@@ -54,6 +55,8 @@
 import { mapState } from 'vuex'
 import CartService from '~/service/cartService.js'
 import Breadcrumbs from '@/components/breadcrumbs/index.vue'
+import ProductByHandle from '@/graphql/ProductByHandle.gql'
+import CheckoutLineItemsAdd from '@/graphql/CheckoutLineItemsAdd.gql'
 
 export default {
   components: {
@@ -70,71 +73,33 @@ export default {
     cart: state => state.cart,
     checkoutId: state => state.checkoutId
   }),
-  asyncData ({ $axios, params }) {
-    return $axios.$post(`https://ecoute-cherie.myshopify.com/api/graphql`, {
-        query: `{
-          productByHandle(handle: "${params.handle}") {
-            id
-            handle
-            title
-            description
-            vendor
-            collections(first: 5) {
-              edges {
-                node {
-                  id
-                  title
-                  handle
-                }
-              }
-            }
-            variants(first: 10) {
-              edges {
-                node {
-                  id
-                  title
-                  sku
-                }
-              }
-            }
-            images(first: 10) {
-              edges {
-                node {
-                  id
-                  src
-                  altText
-                }
-              }
-            }
-            priceRange {
-              minVariantPrice {
-                amount
-                currencyCode
-              }
-              maxVariantPrice {
-                amount
-                currencyCode
-              }
-            }
-          }
-        }`
-      })
-      .then((response) => {
-        return { product: response.data.productByHandle }
-      })
+  apollo: {
+    product: {
+      query: ProductByHandle,
+      loadingKey: 'loading',
+      variables () {
+        return {
+          handle: this.$route.params.handle
+        }
+      },
+      update (data) {
+        return data.productByHandle
+      }
+    }
   },
   methods: {
     addToCart () {
-      CartService.updateCartItem(
-        this.checkoutId,
-        this.variant,
-        this.quantity)
-      .then(response => {
-        this.$store.commit('SET_CART', response.data.data.checkoutLineItemsAdd.checkout)
-        this.$store.commit('SHOW_CART')
+      this.$apollo.mutate({
+        mutation: CheckoutLineItemsAdd,
+        variables: {
+          variantId: this.variant,
+          quantity: this.quantity,
+          checkoutId: this.checkoutId
+        }
       })
-      .catch(error => {
-        console.log('error', error)
+      .then(({ data }) => {
+        this.$store.commit('SET_CART', data.checkoutLineItemsAdd.checkout)
+        this.$store.commit('SHOW_CART')
       })
     },
     selectFirstVariant () {

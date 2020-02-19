@@ -47,7 +47,7 @@ export default {
   */
   buildModules: [
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
-    '@nuxtjs/tailwindcss',
+    '@nuxtjs/tailwindcss'
   ],
   /*
   ** Nuxt.js modules
@@ -55,7 +55,21 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/apollo'
   ],
+  apollo: {
+    clientConfigs: {
+      default: {
+        ssr: true,
+        httpEndpoint: 'https://ecoute-cherie.myshopify.com/api/graphql',
+        httpLinkOptions: {
+          headers: {
+            'X-Shopify-Storefront-Access-Token': '39595aa67bff7dd0c791ecd8bb438f02'
+          }
+        }
+      }
+    }
+  },
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options

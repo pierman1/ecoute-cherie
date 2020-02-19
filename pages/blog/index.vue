@@ -26,9 +26,9 @@ export default {
         'content_type': 'blogPost',
         'order': 'sys.id'
       })
-        .then(entries => {
-          this.blogs = entries.items
-        })
+      .then(entries => {
+        this.blogs = entries.items
+      })
     }
   },
   created () {

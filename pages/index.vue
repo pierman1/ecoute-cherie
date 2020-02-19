@@ -14,7 +14,7 @@
           class="w-full mb-4"
           >
 
-          {{collections}}
+          p: {{ collections }}
 
           <div class="w-full flex flex-row flex-wrap">
 <!--
@@ -37,6 +37,7 @@
 <script>
 import Hero from '@/components/hero'
 import Cell from '@/components/product/Cell'
+import AllCollections from '@/graphql/AllCollections.gql'
 
 export default {
   scrollToTop: true,
@@ -49,64 +50,14 @@ export default {
       collection: []
     }
   },
-  asyncData ({ $axios }) {
-    return $axios.$post(`https://ecoute-cherie.myshopify.com/api/graphql`, {
-        query: `{
-          collections(first:250) {
-            edges {
-              node {
-                handle
-                title
-                id
-              }
-            }
-          }
-        }`
-      })
-      .then((response) => {
-        return { collections: response.data.collections.edges }
-      })
+  apollo: {
+    collections: {
+      query: AllCollections,
+      loadingKey: 'loading',
+      update (data) {
+        return data.collections.edges
+      }
+    }
   }
-  // asyncData ({ $axios, params }) {
-  //   return $axios.$post(`https://pierttt.myshopify.com/api/graphql`, {
-  //       query: `{
-  //         collectionByHandle(handle: "frontpage") {
-  //           id,
-  //           title,
-  //           products(first: 250) {
-  //             edges {
-  //               node {
-  //                 handle
-  //                 title
-  //                 vendor
-  //                 images(first: 10) {
-  //                   edges {
-  //                     node {
-  //                       id
-  //                       src
-  //                       altText
-  //                     }
-  //                   }
-  //                 }
-  //                 priceRange {
-  //                   minVariantPrice {
-  //                     amount
-  //                     currencyCode
-  //                   }
-  //                   maxVariantPrice {
-  //                     amount
-  //                     currencyCode
-  //                   }
-  //                 }
-  //               }
-  //             }
-  //           }
-  //         }
-  //       }`
-  //     })
-  //     .then((response) => {
-  //       return { collection: response.data.collectionByHandle }
-  //     })
-  // }
 }
 </script>

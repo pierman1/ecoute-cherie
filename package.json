@@ -11,6 +11,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@nuxtjs/apollo": "^4.0.0-rc19",
     "@nuxtjs/axios": "^5.3.6",
     "contentful": "^7.10.0",
     "graphql": "^14.6.0",
