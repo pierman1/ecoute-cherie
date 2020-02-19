@@ -24,6 +24,17 @@
           </button>
         </div>
 
+        <ul class="mb-4 border-t">
+          <li class="flex items-center">
+            <nuxt-link
+              to="/blog"
+              class="font-sans font-bold px-6 py-4 border-b w-full md:text-sm"
+            >
+              Blog
+            </nuxt-link>
+          </li>
+        </ul>
+
         <div
           v-if="!$store.state.customer.email"
           class="text-md px-6 py-4 font-bold font-serif tracking-widest">
@@ -33,7 +44,7 @@
           v-if="!$store.state.customer.email"
           class="mb-4 border-t">
           <li
-            class="flex items-center flexs"
+            class="flex items-center"
             v-for="(item, index) in loginMenuItems"
             :key="`item_${index}`"
           >
@@ -51,7 +62,7 @@
         <ul
           v-if="$store.state.customer" class="font-sans mb-4 border-t">
           <li
-            class="flex items-center flexs"
+            class="flex items-center"
             v-for="(item, index) in accountMenuItems"
             :key="`item_${index}`"
           >
@@ -67,7 +78,7 @@
         </div>
         <ul class="font-sans mb-4 border-t">
           <li
-            class="flex items-center flexs"
+            class="flex items-center"
             v-for="(item, index) in moreMenuItems"
             :key="`item_${index}`"
           >

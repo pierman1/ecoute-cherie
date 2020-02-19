@@ -40,6 +40,7 @@ export default {
   */
   plugins: [
     { src: '~/plugins/axios.js' },
+    { src: '~/plugins/contentful.js' },
     { src: '~/plugins/main.js', mode: 'client' }
   ],
   /*
