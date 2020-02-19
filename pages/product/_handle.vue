@@ -52,6 +52,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import CartService from '~/service/cartService.js'
 import Breadcrumbs from '@/components/breadcrumbs/index.vue'
 
 export default {
@@ -124,42 +125,54 @@ export default {
   },
   methods: {
     addToCart () {
-      this.$axios.$post('https://ecoute-cherie.myshopify.com/api/graphql', {
-        query: `mutation {
-          checkoutLineItemsAdd(lineItems: [{ variantId: "${this.variant}", quantity: ${this.quantity} }], checkoutId: "${this.checkoutId}") {
-            checkout {
-              webUrl
-              subtotalPrice
-              totalTax
-              totalPrice
-              lineItems (first:250) {
-                pageInfo {
-                  hasNextPage
-                  hasPreviousPage
-                }
-                edges {
-                  node {
-                    id
-                    title
-                    variant {
-                      id
-                      title
-                      image {
-                        src
-                      }
-                      price
-                    }
-                    quantity
-                  }
-                }
-              }
-            }
-          }
-        }`})
+      CartService.updateCartItem(
+          this.$axios,
+          this.checkoutId,
+          this.variant,
+          this.quantity)
         .then(response => {
           this.$store.commit('SET_CART', response.data.checkoutLineItemsAdd.checkout)
           this.$store.commit('SHOW_CART')
         })
+        .catch(error => {
+          console.log('error', error)
+        })
+      // this.$axios.$post('https://ecoute-cherie.myshopify.com/api/graphql', {
+      //   query: `mutation {
+      //     checkoutLineItemsAdd(lineItems: [{ variantId: "${this.variant}", quantity: ${this.quantity} }], checkoutId: "${this.checkoutId}") {
+      //       checkout {
+      //         webUrl
+      //         subtotalPrice
+      //         totalTax
+      //         totalPrice
+      //         lineItems (first:250) {
+      //           pageInfo {
+      //             hasNextPage
+      //             hasPreviousPage
+      //           }
+      //           edges {
+      //             node {
+      //               id
+      //               title
+      //               variant {
+      //                 id
+      //                 title
+      //                 image {
+      //                   src
+      //                 }
+      //                 price
+      //               }
+      //               quantity
+      //             }
+      //           }
+      //         }
+      //       }
+      //     }
+      //   }`})
+      //   .then(response => {
+      //     this.$store.commit('SET_CART', response.data.checkoutLineItemsAdd.checkout)
+      //     this.$store.commit('SHOW_CART')
+      //   })
     },
     selectFirstVariant () {
       this.variant = this.product.variants.edges[0].node.id
