@@ -38,7 +38,7 @@
 
           <button
             @click="addToCart"
-            class="bg-transparent hover:bg-blue text-black font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent">
+            class="bg-transparent text-black font-semibold hover:text-white hover:bg-black py-2 px-4 border border-blue hover:border-transparent">
             add to cart
           </button>
         </div>
@@ -126,53 +126,16 @@ export default {
   methods: {
     addToCart () {
       CartService.updateCartItem(
-          this.$axios,
-          this.checkoutId,
-          this.variant,
-          this.quantity)
-        .then(response => {
-          this.$store.commit('SET_CART', response.data.checkoutLineItemsAdd.checkout)
-          this.$store.commit('SHOW_CART')
-        })
-        .catch(error => {
-          console.log('error', error)
-        })
-      // this.$axios.$post('https://ecoute-cherie.myshopify.com/api/graphql', {
-      //   query: `mutation {
-      //     checkoutLineItemsAdd(lineItems: [{ variantId: "${this.variant}", quantity: ${this.quantity} }], checkoutId: "${this.checkoutId}") {
-      //       checkout {
-      //         webUrl
-      //         subtotalPrice
-      //         totalTax
-      //         totalPrice
-      //         lineItems (first:250) {
-      //           pageInfo {
-      //             hasNextPage
-      //             hasPreviousPage
-      //           }
-      //           edges {
-      //             node {
-      //               id
-      //               title
-      //               variant {
-      //                 id
-      //                 title
-      //                 image {
-      //                   src
-      //                 }
-      //                 price
-      //               }
-      //               quantity
-      //             }
-      //           }
-      //         }
-      //       }
-      //     }
-      //   }`})
-      //   .then(response => {
-      //     this.$store.commit('SET_CART', response.data.checkoutLineItemsAdd.checkout)
-      //     this.$store.commit('SHOW_CART')
-      //   })
+        this.checkoutId,
+        this.variant,
+        this.quantity)
+      .then(response => {
+        this.$store.commit('SET_CART', response.data.data.checkoutLineItemsAdd.checkout)
+        this.$store.commit('SHOW_CART')
+      })
+      .catch(error => {
+        console.log('error', error)
+      })
     },
     selectFirstVariant () {
       this.variant = this.product.variants.edges[0].node.id

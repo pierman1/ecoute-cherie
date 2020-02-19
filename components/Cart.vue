@@ -7,7 +7,7 @@
     <transition name="slide">
       <div v-if="showCart" class="panel bg-white">
         <h1 class="font-bold text-xl mb-4">Cart</h1>
-        <button class="absolute top-0 right-0 mt-3 mr-3 text-sm" @click="closeCart">close</button>
+        <button class="absolute top-3 right-0 mt-3 mr-3 text-sm" @click="closeCart">close</button>
 
         <div class="scroll-outer">
           <div class="scroll-inner">
@@ -96,81 +96,33 @@ export default {
       this.$store.commit('CLOSE_CART')
     },
     getCart () {
-      CartService.getCart(this.$axios, this.checkoutId)
+      CartService.getCart(this.checkoutId)
       .then(response => {
-        this.$store.commit('SET_CART', response.data.node)
+        this.$store.commit('SET_CART', response.data.data.node)
+      }).catch(error => {
+        console.log('error', error)
       })
     },
     updateCartItem (variantId, quantity) {
-      CartService.updateCartItem(this.$axios, this.checkoutId, variantId, quantity)
+      CartService.updateCartItem(this.checkoutId, variantId, quantity)
         .then(response => {
-          this.$store.commit('SET_CART', response.data.checkoutLineItemsAdd.checkout)
+          this.$store.commit('SET_CART', response.data.data.checkoutLineItemsAdd.checkout)
         })
         .catch(error => {
           console.log('error', error)
         })
-      // console.log(variantId, quantity)
-      // this.$axios.$post('https://ecoute-cherie.myshopify.com/api/graphql', {
-      //   query: `mutation {
-      //     checkoutLineItemsAdd(lineItems: [{ variantId: "${variantId}", quantity: ${quantity} }], checkoutId: "${this.checkoutId}") {
-      //       checkout {
-      //         webUrl
-      //         subtotalPrice
-      //         totalTax
-      //         totalPrice
-      //         lineItems (first:250) {
-      //           pageInfo {
-      //             hasNextPage
-      //             hasPreviousPage
-      //           }
-      //           edges {
-      //             node {
-      //               id
-      //               title
-      //               variant {
-      //                 id
-      //                 title
-      //                 image {
-      //                   src
-      //                 }
-      //                 price
-      //               }
-      //               quantity
-      //             }
-      //           }
-      //         }
-      //       }
-      //     }
-      //   }`}).then(response => {
-      //   console.log('response', response)
-      // }).catch(error => {
-      //   console.log('error', error)
-      // })
-
     },
     removeCartItem (lineItemId) {
-      this.$axios.$post('https://ecoute-cherie.myshopify.com/api/graphql', {
-        query: `mutation {
-          checkoutLineItemsRemove(lineItemIds: ["${lineItemId}"], checkoutId: "${this.checkoutId}") {,
-            userErrors {
-              message
-              field
-            }
-            checkout {
-              id
-            }
-          }
-        }`})
-      .then(response => {
-        this.getCart()
-      })
-      .catch(errors => {
-        window.console.log(errors)
-      })
+      CartService.removeCartItem(this.checkoutId, lineItemId)
+        .then(response => {
+          this.$store.commit('SET_CART', response.data.data.checkoutLineItemsRemove.checkout)
+        })
+        .catch(error => {
+          console.log('error', error)
+        })
     },
     initCart () {
       this.checkoutId = window.localStorage.getItem('shopify_checkout_id')
-      console.log('this.checkoutId', this.checkoutIds)
       if (!this.checkoutId) {
         this.initCheckout()
       } else {
