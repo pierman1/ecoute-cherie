@@ -67,46 +67,5 @@ export default {
         return { collections: response.data.collections.edges }
       })
   }
-  // asyncData ({ $axios, params }) {
-  //   return $axios.$post(`https://pierttt.myshopify.com/api/graphql`, {
-  //       query: `{
-  //         collectionByHandle(handle: "frontpage") {
-  //           id,
-  //           title,
-  //           products(first: 250) {
-  //             edges {
-  //               node {
-  //                 handle
-  //                 title
-  //                 vendor
-  //                 images(first: 10) {
-  //                   edges {
-  //                     node {
-  //                       id
-  //                       src
-  //                       altText
-  //                     }
-  //                   }
-  //                 }
-  //                 priceRange {
-  //                   minVariantPrice {
-  //                     amount
-  //                     currencyCode
-  //                   }
-  //                   maxVariantPrice {
-  //                     amount
-  //                     currencyCode
-  //                   }
-  //                 }
-  //               }
-  //             }
-  //           }
-  //         }
-  //       }`
-  //     })
-  //     .then((response) => {
-  //       return { collection: response.data.collectionByHandle }
-  //     })
-  // }
 }
 </script>
