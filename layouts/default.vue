@@ -26,7 +26,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 html {
   font-size: 16px;
   word-spacing: 1px;

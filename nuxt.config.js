@@ -30,6 +30,11 @@ export default {
   */
   loading: { color: '#fff' },
   /*
+  ** Global CSS
+  */
+  css: [
+    '@/assets/scss/transitions.scss'
+  ],
   /*
   ** Plugins to load before mounting the App
   */
