@@ -14,8 +14,6 @@
           class="w-full mb-4"
           >
 
-          p: {{ collections }}
-
           <div class="w-full flex flex-row flex-wrap">
 <!--
             <cell
