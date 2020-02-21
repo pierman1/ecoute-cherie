@@ -15,47 +15,13 @@
           <div class="scroll-inner">
 
             <div v-if="cart.lineItems && cart.lineItems.edges.length" class="line-items">
-              <div
-                v-for="(line, index) in cart.lineItems.edges"
-                :key="`line_${index}`"
-                @key="line.node.id"
-                class="p-4 mb-4 flex flex-row border-t"
-              >
+              
+              <cart-item
+                v-for="(item, index) in cart.lineItems.edges"
+                :key="`cart_item_${index}`"
+                :item="item"
+              />
 
-                <div class="w-32 h-32">
-                  <img class="object-cover h-full" :src="line.node.variant.image.src" alt="">
-                </div>
-
-                <div class="flex flex-col w-full px-2 font-sans text-sm">
-                  <span class="text-xl font-serif">
-                    {{ line.node.title }}
-                  </span>
-                  <span class="text-xl font-serif">
-                    €{{ line.node.variant.price * line.node.quantity }}
-                  </span>
-                  <div class="flex justify-between mt-auto">
-                    <button
-                      class="bg-black text-white px-4 py-2"
-                      @click="updateCartItem(line.node.variant.id, -1)">
-                      -
-                    </button>
-                    <div class="flex items-center">{{ Number(line.node.quantity) }}x</div>
-                    <button
-                      class="bg-black text-white px-4 py-2"
-                      @click="updateCartItem(line.node.variant.id, 1)">
-                      +
-                    </button>
-                  </div>
-                  <div
-                    @click="removeCartItem(line.node.id)"
-                    class="text-xs text-red-400 cursor-pointer"
-                    >
-                    remove
-                  </div>
-                </div>
-
-
-              </div>
             </div>
             <div class="p-4" v-else>
               <strong>Your cart is empty</strong>
@@ -84,13 +50,18 @@
 
 <script>
 import { mapState } from 'vuex'
-import InitCheckout from '@/graphql/checkout/InitCheckout.gql'
+import CartItem from './CartItem'
 
+
+import InitCheckout from '@/graphql/checkout/InitCheckout.gql'
 import GetCart from '@/graphql/cart/GetCart.gql'
 import CheckoutLineItemsAdd from '@/graphql/cart/CheckoutLineItemsAdd.gql'
 import CheckoutLineItemsRemove from '@/graphql/cart/CheckoutLineItemsRemove.gql'
 
 export default {
+  components: {
+    CartItem
+  },
   data () {
     return {
       checkoutId: null

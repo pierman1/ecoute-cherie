@@ -12,9 +12,9 @@
   },
   "dependencies": {
     "@nuxtjs/apollo": "^4.0.0-rc19",
-    "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/netlify-files": "^1.0.0",
     "contentful": "^7.10.0",
+    "dotenv": "^8.2.0",
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.3",
     "i": "^0.3.6",

@@ -35,7 +35,7 @@
 <script>
 import Hero from '@/components/hero'
 import Cell from '@/components/product/Cell'
-import AllCollections from '@/graphql/AllCollections.gql'
+import AllCollections from '@/graphql/collection/AllCollections.gql'
 
 export default {
   scrollToTop: true,

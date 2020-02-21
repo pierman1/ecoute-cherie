@@ -25,6 +25,7 @@
 import { ValidationProvider, extend } from 'vee-validate'
 import { required } from 'vee-validate/dist/rules'
 import UserForm from '@/components/form/UserForm'
+import CustomerRegister from '@/graphql/customer/CustomerRegister.gql'
 
 export default {
   components: {
@@ -43,29 +44,17 @@ export default {
   },
   methods: {
     register (customer) {
-      this.$axios.$post('https://ecoute-cherie.myshopify.com/api/graphql', {
-        query: `mutation {
-          customerCreate(input: {
-              firstName: "${customer.firstName ? customer.firstName : ''}",
-              lastName: "${customer.lastName ? customer.lastName : ''}",
-              email: "${customer.email ? customer.email : ''}",
-              password: "${customer.password ? customer.password : ''}"
-          }) {
-            userErrors {
-              field
-              message
-            }
-            customer {
-              id
-            }
+      this.$apollo.mutate({
+        mutation: CustomerRegister,
+        variables: {
+          input: {
+            email: customer.email,
+            password: customer.password
           }
-        }`})
-        .then(response => {
-          this.customer = response
-
-          console.log('response', response)
-
-          if (response.data.customerCreate && response.data.customerCreate.customer) {
+        }
+      }).then(response => {
+        this.customer = this.customer
+        if (response.data.customerCreate && response.data.customerCreate.customer) {
             this.$router.push('/account/login')
             this.$toasted.show('New customer created!', {
               type: 'success',
@@ -79,7 +68,7 @@ export default {
               duration: 5000
             })
           }
-        })
+      })
     }
   }
 }

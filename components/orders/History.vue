@@ -4,7 +4,7 @@
       Order history
     </h1>
 
-    <div v-if="$store.state.customer.orders && $store.state.customer.orders.edges">
+    <div v-if="$store.state.customer && $store.state.customer.orders && $store.state.customer.orders.edges">
 
       <order
         v-for="(order, index) in $store.state.customer.orders.edges"

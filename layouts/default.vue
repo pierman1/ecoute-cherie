@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import Cart from '@/components/Cart'
+import Cart from '@/components/cart'
 import LayoutFooter from '@/components/LayoutFooter'
 import LayoutHeader from '@/components/LayoutHeader'
 import LayoutMenu from '@/components/menu'
@@ -60,7 +60,7 @@ body {
 }
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity 1s;
+  transition: opacity 2s;
 }
 
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {

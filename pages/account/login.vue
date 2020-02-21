@@ -23,6 +23,7 @@
 
 <script>
 import UserForm from '@/components/form/UserForm.vue'
+import CustomerLogin from '@/graphql/customer/CustomerLogin.gql'
 
 export default {
   components: {
@@ -35,25 +36,16 @@ export default {
   },
   methods: {
     login (customer) {
-      this.$axios.$post('https://ecoute-cherie.myshopify.com/api/graphql', {
-        query: `mutation {
-          customerAccessTokenCreate(input: {
-            email: "${customer.email}",
-            password: "${customer.password}"}
-          ) {
-            userErrors {
-              field
-              message
-            }
-            customerAccessToken {
-              accessToken
-              expiresAt
-            }
+      this.$apollo.mutate({
+        mutation: CustomerLogin,
+        variables: {
+          input: {
+            email: customer.email,
+            password: customer.password
           }
-        }`})
-        .then(response => {
-          this.customer = response
-
+        }
+      }).then(response => {
+        this.customer = response
 
           if (response.data.customerAccessTokenCreate.customerAccessToken && response.data.customerAccessTokenCreate.customerAccessToken.accessToken) {
             this.$store.commit('SET_CUSTOMER_ACCESS_TOKEN', response.data.customerAccessTokenCreate.customerAccessToken.accessToken)
@@ -66,17 +58,15 @@ export default {
             return
           }
 
-          console.log('response', response.data.customerAccessTokenCreate)
-
-          if (response.data.customerAccessTokenCreate.userErrors && response.data.customerAccessTokenCreate.userErrors[0]) {
-            this.$toasted.show(response.data.customerAccessTokenCreate.userErrors[0].message, {
+          if (response.data.customerAccessTokenCreate.customerUserErrors && response.data.customerAccessTokenCreate.customerUserErrors[0]) {
+            this.$toasted.show(response.data.customerAccessTokenCreate.customerUserErrors[0].message, {
               type: 'error',
               duration: 5000
             })
 
             return
           }
-        })
+      })
     }
   }
 }

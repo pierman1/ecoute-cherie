@@ -1,0 +1,28 @@
+mutation ($customerAccessToken: String!, $firstName: String!, $lastName: String!) {
+  customerUpdate(
+    customerAccessToken: $customerAccessToken,
+    customer: {
+      firstName: $firstName,
+      lastName: $lastName
+    }
+  ) {
+    userErrors {
+      field,
+      message
+    }
+    customer {
+      id
+      firstName
+      lastName
+      email
+      phone
+      orders(first: 10) {
+        edges {
+          node {
+            totalPrice
+          }
+        }
+      }
+    }
+  }
+}

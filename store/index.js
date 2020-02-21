@@ -33,7 +33,7 @@ export const mutations = {
   },
   SET_CHECKOUT_ID (state, id) {
     state.checkoutId = id
-    window.localStorage.setItem('shopify_checkout_id', id)
+    window.localStorage.setItem('ec_shopify_checkout_id_v1', id)
   },
   SET_CUSTOMER_ACCESS_TOKEN (state, token) {
     state.customerAccessToken = token

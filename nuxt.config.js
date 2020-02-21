@@ -1,4 +1,5 @@
 const contentfulConfig = require('./.contentful.json')
+require('dotenv').config()
 
 export default {
   mode: 'universal',
@@ -7,8 +8,8 @@ export default {
   ** Env
   */
   env: {
-    CTF_SPACE_ID: contentfulConfig.CTF_SPACE_ID,
-    CTF_CDA_ACCESS_TOKEN: contentfulConfig.CTF_CDA_ACCESS_TOKEN,
+    CTF_SPACE_ID: process.env.CTF_SPACE_ID,
+    CTF_CDA_ACCESS_TOKEN: process.env.CTF_CDA_ACCESS_TOKEN
   },
 
   /*
@@ -33,13 +34,12 @@ export default {
   ** Global CSS
   */
   css: [
-    // '@/assets/scss/transitions.scss'
+    '@/assets/scss/transitions.scss'
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '~/plugins/axios.js' },
     { src: '~/plugins/contentful.js' },
     { src: '~/plugins/main.js', mode: 'client' }
   ],
@@ -54,28 +54,20 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
-    // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
     '@nuxtjs/apollo'
   ],
   apollo: {
     clientConfigs: {
       default: {
         ssr: true,
-        httpEndpoint: 'https://ecoute-cherie.myshopify.com/api/graphql',
+        httpEndpoint: process.env.SHOPIFY_STORE_FRONT_HTTP_ENDPOINT,
         httpLinkOptions: {
           headers: {
-            'X-Shopify-Storefront-Access-Token': '39595aa67bff7dd0c791ecd8bb438f02'
+            'X-Shopify-Storefront-Access-Token': process.env.SHOPIFY_STORE_FRONT_ACCES_TOKEN
           }
         }
       }
     }
-  },
-  /*
-  ** Axios module configuration
-  ** See https://axios.nuxtjs.org/options
-  */
-  axios: {
   },
   webfontloader: {
     custom: {

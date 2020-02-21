@@ -53,7 +53,6 @@
 
 <script>
 import { mapState } from 'vuex'
-import CartService from '~/service/cartService.js'
 import Breadcrumbs from '@/components/breadcrumbs/index.vue'
 import ProductByHandle from '@/graphql/ProductByHandle.gql'
 import CheckoutLineItemsAdd from '@/graphql/CheckoutLineItemsAdd.gql'

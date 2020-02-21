@@ -55,6 +55,7 @@
 <script>
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate'
 import { required } from 'vee-validate/dist/rules'
+import CustomerUpdate from '@/graphql/customer/CustomerUpdate.gql'
 
 extend('required', {
   ...required,
@@ -77,38 +78,14 @@ export default {
   methods: {
     updateCustomer () {
       const token = window.localStorage.getItem('shopify_customer_access_token')
-
-      this.$axios.$post('https://ecoute-cherie.myshopify.com/api/graphql', {
-        query: `mutation {
-          customerUpdate(
-            customerAccessToken: "${token}",
-            customer: {
-              firstName: "${this.user.firstName}",
-              lastName: "${this.user.lastName}"
-            }
-          ) {
-            userErrors {
-              field
-              message
-            }
-            customer {
-              id
-              firstName
-              lastName
-              email
-              phone
-              orders(first: 10) {
-                edges {
-                  node {
-                    totalPrice
-                  }
-                }
-              }
-            }
-          }
-        }`})
-      .then(response => {
-
+      this.$apollo.mutate({
+        mutation: CustomerUpdate,
+        variables: {
+          customerAccessToken: token,
+          firstName: this.user.firstName,
+          lastName: this.user.lastName
+        }
+      }).then(response => {
         this.$toasted.show('Profile updated!', {
           type: 'success',
           duration: 5000

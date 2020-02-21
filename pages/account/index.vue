@@ -35,6 +35,7 @@
 import AccountForm from '@/components/form/AccountForm.vue'
 import OrderHistory from '@/components/orders/History.vue'
 import Logout from '@/components/account/Logout.vue'
+import CustomerIndex from '@/graphql/customer/CustomerIndex.gql'
 
 export default {
   components: {
@@ -52,26 +53,12 @@ export default {
     getCustomer () {
       const token = window.localStorage.getItem('shopify_customer_access_token')
 
-      this.$axios.$post('https://ecoute-cherie.myshopify.com/api/graphql', {
-        query: `{
-          customer(customerAccessToken: "${token}") {
-            id
-            firstName
-            lastName
-            email
-            phone
-            orders(first: 10) {
-              edges {
-                node {
-                  id
-                  name
-                  totalPrice
-                  processedAt
-                }
-              }
-            }
-          }
-        }`})
+      this.$apollo.query({
+        query: CustomerIndex,
+        variables: {
+          customerAccessToken: token 
+        }
+      })
         .then(response => {
           if (!response.data.customer) {
             this.$router.push('/account/login')

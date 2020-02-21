@@ -1,0 +1,31 @@
+query GetCart($checkoutId: ID!) {
+  node(id: $checkoutId) {
+    ... on Checkout {
+      webUrl
+      subtotalPrice
+      totalTax
+      totalPrice
+      lineItems (first:250) {
+        pageInfo {
+          hasNextPage
+          hasPreviousPage
+        }
+        edges {
+          node {
+            id
+            title
+            variant {
+              id
+              title
+              image {
+                src
+              }
+              price
+            }
+            quantity
+          }
+        }
+      }
+    }
+  }
+}
