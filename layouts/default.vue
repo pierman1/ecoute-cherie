@@ -51,4 +51,49 @@ body {
 .main {
   min-height: 100vh;
 }
+
+.page-enter-active, .page-leave-active {
+  transition: opacity 1s;
+}
+.page-enter, .page-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1s;
+}
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+.slide-enter-active {
+  animation: slide-in .4s;
+}
+.slide-leave-active {
+  animation: slide-in .2s reverse;
+}
+@keyframes slide-in {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.slide-left-enter-active {
+  animation: slide-in-left .4s;
+}
+.slide-left-leave-active {
+  animation: slide-in-left .2s reverse;
+}
+@keyframes slide-in-left {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
 </style>

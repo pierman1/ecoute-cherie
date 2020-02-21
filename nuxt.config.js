@@ -33,7 +33,7 @@ export default {
   ** Global CSS
   */
   css: [
-    '@/assets/scss/transitions.scss'
+    // '@/assets/scss/transitions.scss'
   ],
   /*
   ** Plugins to load before mounting the App
